@@ -1,0 +1,14 @@
+<h1>Roles Page</h1>
+
+<%= form_with model: @role do |form| %>
+  <div class="mb-3">
+    <%= form.label :role_name, id: "first_name_label" %>
+		<%= form.text_field :role_name, id: "first_name_text"%>
+  </div>
+  <div class="mb-3">
+  	<%= form.label :description, id: "first_name_label" %>
+		<%= form.text_field :description, id: "first_name_text"%>
+  </div>
+  <%= form.submit 'Create Role', class: 'create_user_btn'%>
+<% end%>
+

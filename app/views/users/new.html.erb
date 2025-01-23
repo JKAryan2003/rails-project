@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag('new') %>
+
+<div class = "new_container">
+	<h1 id = "new_user_head">New User Registration</h1>
+
+	<%= form_for @user do |f| %>
+		<%=render  "shared/form", f: f%>
+		<div>
+			<% @roles.each do |role| %>
+    		<%= f.check_box :roles, { multiple: true }, role.id, nil %>
+   	 		<%= role.role_name %>
+  			<% end %>
+		</div>
+		<div id = "create_user_btn">
+			<%= f.submit 'Create User', class: 'create_user_btn'%>
+		</div>
+	<% end %>
+
+</div>

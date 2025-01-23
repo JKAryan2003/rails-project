@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag('edit') %>
+
+<div class = "new_container">
+	<h1 id = "new_user_head">Edit User</h1>
+	<%= form_for @user do |f| %>
+		<%= render "shared/form", f: f %>
+		<div>
+			<% @roles.each do |role| %>
+    		<%= f.check_box :roles, { multiple: true,checked: @user.roles.map{ |role| role.id }.include?(role.id)  }, role.id, nil %>
+   	 		<%= role.role_name %>
+  			<% end %>
+		</div>
+		<div>
+			<%= f.submit 'Update User', class: 'create_user_btn'%>
+		</div> 
+	<% end %>
+</div>

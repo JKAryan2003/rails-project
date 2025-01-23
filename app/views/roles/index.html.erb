@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Role Name</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+   <% @roles.each do |role|%>
+				<tr>
+          <td><%= role.id %></td>
+					<td><%= role.role_name %></td>
+					<td><%= role.description %></td>
+          <td><%= link_to "Details", role_path(role), class: "anchor_links", id: "detail_link" %></td>
+					<td><%= link_to "Edit", edit_role_path(role), class: "anchor_links",id: "edit_link" %></td>
+					<td><%= link_to "Delete",role_path(role), data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"}, class: "anchor_links",id: "delete_link" %></td>
+				</tr>
+		<% end %>
+  </tbody>
+</table>

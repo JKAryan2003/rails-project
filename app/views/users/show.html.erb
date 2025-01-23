@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag('show') %>
+
+<div class = "show_container">
+  <h1 id = "user_detail">User Details</h1>
+
+  <p style = "bold" class = "paras">First Name : <%= @user.first_name%></p>
+  <p style = "bold" class = "paras">Last Name : <%= @user.last_name%></p>
+  <p style = "bold" class = "paras">Email : <%= @user.email%></p>
+
+  <p style = "bold" class = "paras">Roles : <%= @roles.map{|role| role.role_name}.join(",")%></p>
+
+  <%= link_to "Back", users_path , class: "back_link"%>
+  <%= link_to "Edit", edit_user_path(@user), class: "edit_link"%>
+</div>
+ 
