@@ -34,11 +34,6 @@ class UsersController < ApplicationController
   def edit
     user
     @roles = Role.all
-    # user_role = user.roles
-    # @roles.each do |role|
-    #   user_role = Role.find_by(id: params[:id])
-    # end
-    # user.role = Role.find_by(id: params[:id])
 
   end
 
@@ -47,7 +42,7 @@ class UsersController < ApplicationController
     role_ids = params[:user][:roles]
     if user.update(user_params)
       role_ids.each do |role_id|
-        if !UserRole.find(role_id)
+        if !UserRole.find_by(user_id: user.id, role_id: role_id)
           UserRole.create(user_id:@user.id,role_id: role_id)
         end
       end
