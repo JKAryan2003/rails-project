@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag('index') %>
+
+<div class = "container">
+
+	<div>
+		<table class="details_table">
+  		<thead>
+    		<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Roles</th>
+					<th colspan = 3>Action</th>
+    		</tr>
+  		</thead>
+
+			<tbody>
+				<% @users.each do |user|%>
+				<tr>
+					<td><%= user.first_name %></td>
+					<td><%= user.last_name %></td>
+					<td><%= user.email %></td>
+					<td><% user.roles.each do |role|%>
+									<%= role.role_name%>
+					    <% end%>
+					</td>
+					<td><%= link_to "Details", user_path(user), class: "anchor_links", id: "detail_link" %></td>
+					<td><%= link_to "Edit", edit_user_path(user), class: "anchor_links",id: "edit_link" %></td>
+					<td><%= link_to "Delete",user_path(user), data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"}, class: "anchor_links",id: "delete_link" %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
+	<%= link_to 'Create User', new_user_path, class: "anchor_links", id: "new_link" %>
+	<%= link_to 'Create Role', new_role_path, class: "anchor_links", id: "new_link" %>
+
+</div>

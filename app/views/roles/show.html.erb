@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag('show') %>
+
+<div class = "show_container">
+  <h1 id = "user_detail">Role Details</h1>
+
+  <p style = "bold" class = "paras">Role : <%= @role.role_name%></p>
+  <p style = "bold" class = "paras">Description : <%= @role.description%></p>
+
+  <%= link_to "Back", roles_path , class: "back_link"%>
+  <%= link_to "Edit", edit_role_path(@role), class: "edit_link"%>
+</div>
