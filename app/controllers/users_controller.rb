@@ -39,11 +39,21 @@ class UsersController < ApplicationController
 
   def update
     user
+    # @roles = user.roles
     role_ids = params[:user][:roles]
+    # binding.pry
     if user.update(user_params)
       role_ids.each do |role_id|
         if !UserRole.find_by(user_id: user.id, role_id: role_id)
           UserRole.create(user_id:@user.id,role_id: role_id)
+        end
+      end
+
+      prev_ids = user.roles.map{ |role| role.id}
+      # binding.pryq
+      prev_ids.each do |prev_role_id|
+        if !role_ids.include?(prev_role_id.to_s)
+          UserRole.find_by(user_id: user.id, role_id: prev_role_id).destroy()
         end
       end
       redirect_to users_path,notice: "Updated!!"
@@ -55,6 +65,7 @@ class UsersController < ApplicationController
   def destroy
     user
     user.destroy()
+
     redirect_to users_path
   end
 
