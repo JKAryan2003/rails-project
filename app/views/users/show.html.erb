@@ -1,15 +1,30 @@
 <%= stylesheet_link_tag('show') %>
 
-<div class = "show_container">
-  <h1 id = "user_detail">User Details</h1>
+<div class = "container d-flex justify-content-center align-items-center shadow p-3 mb-5 bg-body-tertiary rounded show_container">
+  <p class="h1 text-center mb-5">User Details</p>
 
-  <p style = "bold" class = "paras">First Name : <%= @user.first_name%></p>
-  <p style = "bold" class = "paras">Last Name : <%= @user.last_name%></p>
-  <p style = "bold" class = "paras">Email : <%= @user.email%></p>
+  <div class = "mb-5">
+    <span class = "text-center fw-medium fs-4">First Name : </span> 
+    <span class = "fw-light fs-5"><%= @user.first_name%></span>
+  </div>
+  <div class = "mb-5">
+    <span class = "text-center fw-medium fs-4">Last Name : </span> 
+    <span class = "fw-light fs-5"><%= @user.last_name%></span>
+  </div>
 
-  <p style = "bold" class = "paras">Roles : <%= @roles.map{|role| role.role_name}.join(",")%></p>
+  <div class = "mb-5">
+    <span class = "text-center fw-medium fs-4">Email : </span> 
+    <span class = "fw-light fs-5"><%= @user.email%></span>
+  </div>
 
-  <%= link_to "Back", users_path , class: "back_link"%>
-  <%= link_to "Edit", edit_user_path(@user), class: "edit_link"%>
+  <div class = "mb-2">
+    <span class = "text-center fw-medium fs-4">Roles : </span>
+    <span class = "fw-light fs-5"><%= @roles.map{|role| role.role_name}.join(",")%></span>
+  </div>
+
+  <div class = "mt-5">
+    <%= link_to "Edit", edit_user_path(@user), class: "btn btn-secondary me-5"%>
+    <%= link_to "Back", users_path , class: "btn btn-danger"%>
+  </div>
 </div>
  

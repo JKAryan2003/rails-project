@@ -1,39 +1,69 @@
 <%= stylesheet_link_tag('index') %>
 
-<div class = "container">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">User Registration</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-	<div>
-		<table class="details_table">
-  		<thead>
-    		<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th>Roles</th>
-					<th colspan = 3>Action</th>
-    		</tr>
-  		</thead>
+<div class = "container d-inline-flex justify-content-center align-items-center flex-column">
+	<p class="h2 text-center mb-3">Users List</p>
+	<%= link_to 'Create User', new_user_path, class: "btn btn-success mb-3" %>
 
-			<tbody>
-				<% @users.each do |user|%>
+	<div class = "table_div">
+		<table class="table table-hover text-center">
+			<thead class = "table-secondary">
 				<tr>
-					<td><%= user.first_name %></td>
-					<td><%= user.last_name %></td>
-					<td><%= user.email %></td>
-					<td><% user.roles.each do |role|%>
-									<%= role.role_name%>
-					    <% end%>
-					</td>
-					<td><%= link_to "Details", user_path(user), class: "anchor_links", id: "detail_link" %></td>
-					<td><%= link_to "Edit", edit_user_path(user), class: "anchor_links",id: "edit_link" %></td>
-					<td><%= link_to "Delete",user_path(user), data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"}, class: "anchor_links",id: "delete_link" %></td>
+					<th class = "p-3" >First Name</th>
+					<th class = "p-3" >Last Name</th>
+					<th class = "p-3" >Email</th>
+					<th class = "p-3" >Roles</th>
+					<th class = "p-3" colspan = "3">Actions</th>
 				</tr>
-				<% end %>
+			</thead>
+			<tbody class = "table-light text-center" >
+				<% @users.each do |user|%>
+					<tr>
+						<td class = "p-3" ><%= user.first_name %></td>
+						<td class = "p-3"><%= user.last_name %></td>
+						<td class = "p-3"><%= user.email %></td>
+						<td class = "p-3">
+							<% user.roles.each do |role|%>
+								<%= role.role_name%>
+							<% end%>
+						</td>
+						<td class = "p-3"><%= link_to "Details", user_path(user), class: "btn btn-dark" %></td>
+						<td class = "p-3"><%= link_to "Edit", edit_user_path(user), class: "btn btn-secondary" %></td>
+						<td class = "p-3"><%= link_to "Delete",user_path(user), data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"}, class: "btn btn-danger" %></td>
+					</tr>
+				<% end%>
 			</tbody>
 		</table>
 	</div>
-
-	<%= link_to 'Create User', new_user_path, class: "anchor_links", id: "new_link" %>
-	<%= link_to 'Create Role', new_role_path, class: "anchor_links", id: "new_link" %>
-
 </div>
