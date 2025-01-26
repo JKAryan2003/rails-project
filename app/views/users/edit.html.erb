@@ -1,17 +1,24 @@
-<%= stylesheet_link_tag('edit') %>
+<%= stylesheet_link_tag('new') %>
 
-<div class = "new_container">
-	<h1 id = "new_user_head">Edit User</h1>
-	<%= form_for @user do |f| %>
-		<%= render "shared/form", f: f %>
-		<div>
-			<% @roles.each do |role| %>
-    		<%= f.check_box :roles, { multiple: true,checked: @user.roles.map{ |role| role.id }.include?(role.id)  }, role.id, nil %>
-   	 		<%= role.role_name %>
+<div class = "container d-flex justify-content-center align-items-center">
+	<div class = "row d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow  box-area inside_container">
+		<p class="h2 text-center">Edit User</p>
+		
+		<%= form_for @user do |f| %>
+			
+			<%= render partial: "form", locals: { f: f } %>
+			
+			<div class = "check_box_div">
+				<% @roles.each do |role| %>
+    			<%= f.check_box :roles, { multiple: true,checked: @user.roles.map{ |role| role.id }.include?(role.id)  }, role.id, nil %>
+   	 			<%= role.role_name %>
   			<% end %>
-		</div>
-		<div>
-			<%= f.submit 'Update User', class: 'create_user_btn'%>
-		</div> 
-	<% end %>
+			</div>
+		
+			<div>
+				<%= f.submit 'Update User', class: 'create_user_btn btn btn-success mt-5 ms-3'%>
+				<%= link_to 'Back', users_path, class: "btn btn-secondary mt-5 ms-3" %>
+			</div> 
+		<% end %>
+	</div>
 </div>

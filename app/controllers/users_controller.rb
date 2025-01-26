@@ -10,20 +10,26 @@ class UsersController < ApplicationController
   end
 
   def create
+    user
     @user = User.new(user_params)
     role_ids = params[:user][:roles]
 
+    if role_ids.present?
+      role_ids.map!{|role_id| role_id.to_i}
+      @user.roles = Role.where(id: role_ids)
+    end
+
+
     if @user.save 
 
-      role_ids.each do |role_id|
-        UserRole.create(user_id:@user.id,role_id: role_id)
-      end
+      UserMailer.welcome_email(@user).deliver_now
       redirect_to users_path,notice: "User Created Successfully!"
 
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
       render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
     end
+
   end
 
   def show
@@ -38,10 +44,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user
-    # @roles = user.roles
     role_ids = params[:user][:roles]
-    # binding.pry
     if user.update(user_params)
       role_ids.each do |role_id|
         if !UserRole.find_by(user_id: user.id, role_id: role_id)
@@ -50,13 +53,15 @@ class UsersController < ApplicationController
       end
 
       prev_ids = user.roles.map{ |role| role.id}
-      # binding.pryq
+
       prev_ids.each do |prev_role_id|
         if !role_ids.include?(prev_role_id.to_s)
-          UserRole.find_by(user_id: user.id, role_id: prev_role_id).destroy()
+          UserRole.find_by(user_id: user.id, role_id: prev_role_id).destroy
         end
       end
       redirect_to users_path,notice: "Updated!!"
+
+      # binding.pry
     else
       render :edit
     end
@@ -64,7 +69,7 @@ class UsersController < ApplicationController
   
   def destroy
     user
-    user.destroy()
+    user.destroy
 
     redirect_to users_path
   end
