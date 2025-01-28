@@ -1,0 +1,4 @@
+<p>Hey <%= @user.first_name%></p>
+<p>Welcome to our Registration Portal</p>
+<p>Click on the link below for confirmation</p>
+<%= link_to 'Confirm', edit_confirmation_url(@user[:id]) %>

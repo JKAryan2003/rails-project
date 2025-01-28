@@ -3,22 +3,34 @@
 <div class = "container d-flex justify-content-center align-items-center">
 	<div class = "row d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow  box-area inside_container">
 		<p class="h2 text-center">Edit User</p>
-		
 		<%= form_for @user do |f| %>
-			
 			<%= render partial: "form", locals: { f: f } %>
-			
+			<div class = "form-group m-3" id = "email_div">
+				<%= f.label :password %>
+				<%= f.password_field :password ,class: "form-control my-3" %>
+			</div>
+
+      <div class = "form-group m-3">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: "form-control my-3" %>
+      </div>
+
 			<div class = "check_box_div">
 				<% @roles.each do |role| %>
-    			<%= f.check_box :roles, { multiple: true,checked: @user.roles.map{ |role| role.id }.include?(role.id)  }, role.id, nil %>
-   	 			<%= role.role_name %>
-  			<% end %>
+					<% if role.role_name == "Admin" %>
+						<% next%>
+					<% else %>
+						<%= f.check_box :roles, { multiple: true }, role.id, nil %>
+						<%= role.role_name %>
+					<% end %>
+				<% end %>
 			</div>
 		
-			<div>
-				<%= f.submit 'Update User', class: 'create_user_btn btn btn-success mt-5 ms-3'%>
-				<%= link_to 'Back', users_path, class: "btn btn-secondary mt-5 ms-3" %>
-			</div> 
+			<div class = "d-flex justify-content-center ms-2">
+				<%= f.submit 'Edit User', class: 'create_user_btn btn btn-success mt-5 ms-3' %>
+			</div>
 		<% end %>
+
 	</div>
+
 </div>

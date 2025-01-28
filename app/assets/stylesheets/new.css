@@ -8,3 +8,35 @@
   display: flex;
   justify-content: space-around;
 }
+
+.land_container{
+  padding: 30px;
+  background-color: #D8E5FA;
+  margin: 200px;
+  margin-top: 100px;
+  margin-left: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+}
+
+.text_img_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.new{
+  margin-top: 80px;
+}
+
+.log{
+  margin-top: 50px;
+}
+
+.outer_container{
+  background-color: #F0EAFC;
+}
