@@ -1,14 +1,24 @@
-<h1>Roles Page</h1>
+<%= stylesheet_link_tag('new') %>
 
-<%= form_with model: @role do |form| %>
-  <div class="mb-3">
-    <%= form.label :role_name, id: "first_name_label" %>
-		<%= form.text_field :role_name, id: "first_name_text"%>
-  </div>
-  <div class="mb-3">
-  	<%= form.label :description, id: "first_name_label" %>
-		<%= form.text_field :description, id: "first_name_text"%>
-  </div>
-  <%= form.submit 'Create Role', class: 'create_user_btn'%>
-<% end%>
+<div class = "container d-flex justify-content-center align-items-center">
+	<div class = "row d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow  box-area inside_container">
+		<p class="h2 text-center">Create Role</p>
+		<%= form_for @role do |f| %>
+			<div class = "form-group m-3">
+				<%= f.label :role_name %>
+				<%= f.text_field :role_name ,class: "form-control my-3" %>
+			</div>
 
+      <div class = "form-group m-3">
+        <%= f.label :description %>
+        <%= f.text_field :description, class: "form-control my-3" %>
+      </div>
+
+			<div class = "ms-5 d-flex justify-content-center">
+				<%= f.submit 'Create Role', class: 'create_user_btn btn btn-success mt-3 me-5 ' %>
+			</div>
+		<% end %>
+
+	</div>
+
+</div>

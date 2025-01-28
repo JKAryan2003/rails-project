@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag('new') %>
+
+<div class = "container d-flex justify-content-center align-items-center">
+	<div class = "row d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow  box-area inside_container">
+		<p class="h2 text-center">Log In</p>
+		<%= form_for :login do |f| %>
+      <div class = "form-group m-3" >
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control my-3" %>
+      </div>
+
+      <div class = "form-group m-3" >
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control my-3"%>
+      </div>
+
+			<div id = "create_user_btn">
+				<%= f.submit 'Log In', class: 'create_user_btn btn btn-success mt-5 ms-3' %>
+				<%= link_to 'Back', users_path, class: "btn btn-secondary mt-5 ms-3" %>
+			</div>
+		<% end %>
+
+	</div>
+
+</div>

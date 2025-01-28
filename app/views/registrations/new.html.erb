@@ -26,8 +26,9 @@
 				<% end %>
 			</div>
 		
-			<div class = "d-flex justify-content-center ms-2">
+			<div class = "ms-5">
 				<%= f.submit 'Create User', class: 'create_user_btn btn btn-success mt-5 ms-3' %>
+				<%= link_to 'Back1', qwerty_path, class: "btn btn-secondary mt-5 ms-3", data:{ turbo_method: :post} %>
 			</div>
 		<% end %>
 

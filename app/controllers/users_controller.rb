@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    user
     @user = User.new(user_params)
     role_ids = params[:user][:roles]
 
@@ -21,14 +20,14 @@ class UsersController < ApplicationController
 
 
     if @user.save 
-
-      UserMailer.welcome_email(@user).deliver_now
-      redirect_to users_path,notice: "User Created Successfully!"
+      UserMailer.confirmation_email(@user).deliver_now
+      redirect_to new_user_path,notice: "Confirm your account"
 
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
       render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
     end
+
 
   end
 
@@ -61,7 +60,6 @@ class UsersController < ApplicationController
       end
       redirect_to users_path,notice: "Updated!!"
 
-      # binding.pry
     else
       render :edit
     end
@@ -74,10 +72,11 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 
   def user
