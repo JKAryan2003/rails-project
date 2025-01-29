@@ -1,35 +1,53 @@
-<nav class="navbar bg-body-tertiary d-flex justify-content-center>
+<nav class="navbar bg-body-tertiary d-flex justify-content>
   <div class="container-fluid">
     <%= link_to 'Registration Portal', root_path, class: "ms-3 mb-0 h1 text-decoration-none" %> 
   </div>
-  <% if current_user %>
-    <div class="dropdown me-5">
-      <span class = "me-3">Hello <%= current_user.first_name%></span>
-      <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Controls
-      </button>
-        <% if is_admin %>
-          <ul class="dropdown-menu dropdown-menu-dark ms-5 ">
-            <li><%= link_to 'Home', menu_users_path, class: "text-decoration-none text-light" %></li>
-            <li><%= link_to 'Users', users_path, class: "text-decoration-none text-light" %></li>
-            <li><%= link_to 'Role', roles_path, class: "text-decoration-none text-light" %></li>
-            <li><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
-            <li><%= link_to 'Log Out', logout_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
-          </ul>
-        <% else%>
-          <ul class="dropdown-menu dropdown-menu-dark" >
-              <li><%= link_to 'Home', menu_users_path, class: "text-decoration-none text-light" %></li>
-              <li><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
-              <li><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light"%></li>
-              <li><%= link_to 'Log Out', logout_path, class: "text-decoration-none text-light", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
-          </ul>
-        <% end %>
-    </div>
-  <% else %>
-    <div class = "me-4">
-      <%= link_to 'Home', root_path, class: "btn btn-secondary" %> 
-      <%= link_to 'Log In', login_path, class: "btn btn-secondary" %> 
-      <%= link_to 'Sign Up', new_user_path, class: "btn btn-secondary" %>
-    </div>
-  <% end %>
+  <div class = "d-flex justify-content-evenly" style = "margin-right: 60px;">
+    <% if current_user %>
+      <span class = "mt-2 me-3">Hello <%= current_user.first_name %></span>
+      
+      <% if is_admin %>
+        <div class="dropdown me-2">
+            <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin Controls
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark  ">
+              <li class = "dropdown-item"><%= link_to 'Home', posts_path, class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Users', users_path, class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Role', roles_path, class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Log Out', logout_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
+            </ul>
+        </div>
+
+        <div class = "dropdown">
+            <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Profile
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark  ">
+              <li class = "dropdown-item"><%= link_to 'Home', posts_path, class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'My Posts', post_user_path(current_user), class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Log Out', logout_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
+            </ul>
+        </div>
+       <% else%>
+            <ul class="dropdown-menu dropdown-menu-dark" >
+                <li class = "dropdown-item"><%= link_to 'Home', posts_path, class: "text-decoration-none text-light" %></li>
+                <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
+                <li class = "dropdown-item"><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
+                <li class = "dropdown-item"><%= link_to 'My Posts', post_user_path(current_user), class: "text-decoration-none text-light" %></li>
+                <li class = "dropdown-item"><%= link_to 'Log Out', logout_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
+            </ul>
+         </div>
+      <% end %>
+     
+    <% else %>
+      <div class = "me-4">
+        <%= link_to 'Home', root_path, class: "btn btn-secondary" %> 
+        <%= link_to 'Log In', login_path, class: "btn btn-secondary" %> 
+        <%= link_to 'Sign Up', new_user_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
 </nav>

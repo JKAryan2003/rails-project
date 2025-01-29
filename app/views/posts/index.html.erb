@@ -1,0 +1,75 @@
+<%= stylesheet_link_tag('new') %>
+
+<div class = "d-flex justify-content-center align-items-center outer_container bg-light-subtle flex-column">
+  <button type="button" class="btn btn-primary me-3 mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">New Post +</button>
+  <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">New Post</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= form_for Post.new do |f| %>
+            <div class = "form-group m-3">
+              <%= f.label :title %>
+              <%= f.text_field :post_name, class: "form-control my-3" %>
+            </div>
+            <div class = "form-group m-3">
+              <%= f.label :content %>
+              <%= f.text_field :post_content, class: "form-control my-3" %>
+            </div>
+
+            <div class = "form-group m-3 d-flex justify-content-center justify-content-between">
+              <div>
+                <%= f.label :is_public, 'Public' %>
+                <%= f.radio_button :is_public,true %>
+              </div>
+              <div>
+                <%= f.label :is_public, 'Private' %>
+                <%= f.radio_button :is_public,false %>
+              </div>
+            </div>
+      
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <%= f.submit 'Create Post', class: 'create_user_btn btn btn-success' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = "land_container shadow-lg bg-light-subtle">
+    <p class="h2 text-center fs-1">Posts</p>
+
+    <div class = "d-flex flex-column w-100 gap-5 ">
+      <% @posts.each do |post|%>
+        <% if post.is_public?%>
+          <div class="card d-flex flex-column w-100" style="width: 100%;">
+            <div class="card-body bg-body-tertiary">
+              <h4 class="card-title"><%= post.post_name %></h4>
+              <h6 class="card-subtitle mb-2 text-body-secondary"><%= post.user.first_name%></h6>
+              <p class="card-text"><%= post.post_content %></p>
+              <p class="card-text text-body-secondary">Comments</p>
+              <% post.comments.each do |comment|%>
+                <div class = "bg-body-tertiary">
+                  <span class = "text-body-secondary" style = "font-size: 15px;"><%= comment.user.first_name %> : </span>
+                  <span style = "font-size: 15px;"><%= comment.comment_content %></span>
+                </div>
+              <% end%>
+            </div>
+            <div class = "bg-body-tertiary">
+              <%= form_for Comment.new, url: post_comments_path(post), method: :post do |f| %>
+                <div class = "form-group m-3 bg-body-tertiary">
+                  <%= f.text_field :comment_content, class: "form-control my-3 w-25" %>
+                  <%= f.submit 'Comment', class: 'create_user_btn btn btn-success' %>
+                </div>
+              <%  end%>
+            </div>
+          </div>
+        <% end%>
+      <% end%>
+    </div>
+  </div>
+<div>
