@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:index, :show, :edit, :update]
 
   def index
     @users = User.all
@@ -72,7 +73,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-
+  def user_post
+    @all_post = current_user.posts
+  end
+  
   private
 
   def user_params

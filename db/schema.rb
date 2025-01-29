@@ -19,16 +19,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_28_165754) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "content"
+    t.text "comment_content"
+    t.integer "user_id", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+    t.string "post_name"
+    t.text "post_content"
+    t.boolean "is_public", default: true
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -57,6 +64,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_28_165754) do
     t.boolean "is_confirmed", default: false, null: false
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "posts", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end

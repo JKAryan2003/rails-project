@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   root "landing#index"
 
   resources :users do
+    member do
+      get '/post', to: 'users#user_post'
+    end
     collection do
       get '/menu' ,to: 'users#menu'
     end
@@ -20,7 +23,10 @@ Rails.application.routes.draw do
 
   resources :roles 
   resources :confirmation, only: [:edit]
-  resources :posts
+  
+  resources :posts do
+    resources :comments, only: [:create]
+  end
 
   get '/signup', to: 'registrations#new'
 	post '/signup', to: 'registrations#create', as: :qwerty

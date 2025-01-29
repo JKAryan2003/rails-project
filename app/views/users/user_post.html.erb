@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag('new') %>
+
+<div class = "d-flex justify-content-center align-items-center outer_container bg-light-subtle">
+  <div class = "land_container shadow-lg bg-light-subtle">
+
+    <p class="h2 text-center fs-1">My Posts</p>
+
+    <div class = "d-flex flex-column w-100 gap-5 ">
+      <% @all_post.each do |post|%>
+        <% if post.is_public?%>
+          <div class="card d-flex flex-column w-100" style="width: 100%;">
+            <div class="card-body bg-body-tertiary">
+              <h4 class="card-title"><%= post.post_name %></h4>
+              <h6 class="card-subtitle mb-2 text-body-secondary"><%= post.user.first_name%></h6>
+              <p class="card-text"><%= post.post_content %></p>
+              <p class="card-text text-body-secondary">Comments</p>
+              <% post.comments.each do |comment|%>
+                <div class = "bg-body-tertiary">
+                  <span class = "text-body-secondary" style = "font-size: 15px;"><%= comment.user.first_name %> : </span>
+                  <span style = "font-size: 15px;"><%= comment.comment_content %></span>
+                </div>
+              <% end%>
+            </div>
+          </div>
+        <% end%>
+      <% end%>
+    </div>
+  </div>
+<div>

@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+  before_action :require_login, only: [:index, :show, :edit, :update, :new]
 
   def index
     @roles = Role.all
