@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_login, only: [:index, :show, :edit, :update]
+  before_action :require_admin, only: [:index]
 
   def index
     @users = User.all
@@ -15,14 +16,13 @@ class UsersController < ApplicationController
     role_ids = params[:user][:roles]
 
     if role_ids.present?
-      role_ids.map!{|role_id| role_id.to_i}
+      role_ids.map!{ |role_id| role_id.to_i }
       @user.roles = Role.where(id: role_ids)
     end
 
-
     if @user.save 
       UserMailer.confirmation_email(@user).deliver_now
-      redirect_to new_user_path,notice: "Confirm your account"
+      redirect_to new_user_path, notice: "Confirm your account"
 
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     if user.update(user_params)
       role_ids.each do |role_id|
         if !UserRole.find_by(user_id: user.id, role_id: role_id)
-          UserRole.create(user_id:@user.id,role_id: role_id)
+          UserRole.create(user_id:@user.id, role_id: role_id)
         end
       end
 
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
           UserRole.find_by(user_id: user.id, role_id: prev_role_id).destroy
         end
       end
-      redirect_to users_path,notice: "Updated!!"
+      redirect_to posts_path, notice: "Updated!!"
 
     else
       render :edit
@@ -68,9 +68,12 @@ class UsersController < ApplicationController
   
   def destroy
     user
-    user.destroy
-
-    redirect_to users_path
+    if user.roles.where!(role_name: "Owner")
+      redirect_to users_path, alert: "Owner cannot be deleted"
+    else
+      user.destroy
+      redirect_to users_path
+    end
   end
 
   def user_post
