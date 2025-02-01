@@ -6,7 +6,6 @@ class RegistrationsController < ApplicationController
 
   def create
 
-    binding.pry 
     @user = User.new(user_params)
     role_ids = params[:user][:roles]
 

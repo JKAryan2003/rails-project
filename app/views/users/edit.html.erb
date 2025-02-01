@@ -20,7 +20,7 @@
 					<% if role.role_name == "Admin" %>
 						<% next%>
 					<% else %>
-						<%= f.check_box :roles, { multiple: true }, role.id, nil %>
+						<%= f.check_box :roles, { multiple: true, checked: @user.roles.map{|rol| rol.id}.include?(role.id)} , role.id, nil %>
 						<%= role.role_name %>
 					<% end %>
 				<% end %>

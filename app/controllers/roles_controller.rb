@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
   before_action :require_login, only: [:index, :show, :edit, :update, :new]
+  before_action :require_admin, only: [:index, :show, :edit, :update, :new]
 
   def index
     @roles = Role.all
@@ -14,7 +15,6 @@ class RolesController < ApplicationController
 
     if @role.save
       redirect_to roles_path,notice: "User Created Successfully!"
-
     else
       flash.now[:alert] = @role.errors.full_messages.to_sentence
       render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
@@ -33,7 +33,7 @@ class RolesController < ApplicationController
     role
 
     if role.update(role_params)
-      redirect_to roles_path,notice: "Updated!!"
+      redirect_to roles_path, notice: "Updated!!"
     else
       render :edit
     end

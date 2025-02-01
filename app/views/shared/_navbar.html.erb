@@ -32,6 +32,10 @@
             </ul>
         </div>
        <% else%>
+          <div class = "dropdown">
+            <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Profile
+            </button>
             <ul class="dropdown-menu dropdown-menu-dark" >
                 <li class = "dropdown-item"><%= link_to 'Home', posts_path, class: "text-decoration-none text-light" %></li>
                 <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
@@ -41,6 +45,7 @@
             </ul>
          </div>
       <% end %>
+          </div>
      
     <% else %>
       <div class = "me-4">

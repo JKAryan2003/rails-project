@@ -5,8 +5,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
   helper_method :is_admin
-  helper_method :logged_in
+  helper_method :logged_in?
   helper_method :require_login
+  helper_method :require_admin
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -21,10 +22,16 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    if logged_in?
-      true
-    else
+    unless logged_in?
       redirect_to login_path, alert: "You must be logged in to view this page."
     end
+    true
+  end
+
+  def require_admin
+    unless is_admin
+      redirect_to posts_path, alert: "Access Denied"
+    end
+    true
   end
 end
